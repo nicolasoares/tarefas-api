@@ -1,0 +1,9 @@
+# Sobe a API com um comando:  docker compose up --build
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - LOG_LEVEL=${LOG_LEVEL:-info}

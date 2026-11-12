@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: API de Tarefas
+  version: 1.0.0
+  description: Fluxo principal - criar uma tarefa e listar as tarefas.
+servers:
+  - url: http://localhost:3000
+paths:
+  /tarefas:
+    get:
+      summary: Lista as tarefas
+      responses:
+        '200':
+          description: Lista de tarefas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tarefa'
+    post:
+      summary: Cria uma tarefa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [titulo]
+              properties:
+                titulo:
+                  type: string
+                  minLength: 3
+                  example: Entregar projeto final
+      responses:
+        '201':
+          description: Tarefa criada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tarefa'
+        '400':
+          description: Título inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro:
+                    type: string
+components:
+  schemas:
+    Tarefa:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        titulo:
+          type: string
+          example: Entregar projeto final
+        concluida:
+          type: boolean
+          example: false
